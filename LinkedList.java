@@ -4,20 +4,22 @@ This will be used to simulate the cache.
 */
 
 public class LinkedList{
-    int position;
-    int length;  
-    int clockPointer;
-    int compulsoryMisses;
-    int capacityMisses;
-    Node front;
-    Node back;
-    Node cursor;
+
+    private int position;
+    private int length;  
+    private int clockPointer;
+    private int compulsoryMisses;
+    private int capacityMisses;
+    private Node front;
+    private Node back;
+    private Node cursor;
 
     private class Node {
         Node prev;
         Node next;
         String data;
         int referenceBit;
+
         // Node constructor
         Node (String data) {
             this.data = data;
@@ -28,72 +30,87 @@ public class LinkedList{
     }
 
     public static void main(String[] args){
-        System.out.println("Linked List Class");
+        System.out.println("Linked List Class" + node );
     }
 
     // initalize linked list instance
     public LinkedList () {
-        this.position;
-        this.length;  
-        this.clockPointer;
-        this.compulsoryMisses;
-        this.capacityMisses;
-        this.front;
-        this.back;
-        this.cursor;
+        this.position = 0;
+        this.length = 0;  
+        this.clockPointer = 0;
+        this.compulsoryMisses = 0;
+        this.capacityMisses = 0;
+        this.front = new Node("0");
+        this.back = new Node("0");
+        this.cursor = this.front;
     }
 
     /* Accessor Functions */
 
     // front - returns value of first element
-    public String front () {
-
+    public String front() {
+        return this.front.data;
     }
 
     // length - returns current length of list
     public int length () {
-
+        return this.length;
     }
     
     // Position - gets position at which cursor is at
-    public int position () {
-
+    public int position() {
+        return this.position;
     }
 
     // Get - get value at cursor
-    public String get () {
-
+    public String getCursor() {
+        return this.cursor.data;
     }
  
     // getValueAtIndex - get value in list at a specified index
-    public String getValueAtIndex (int index) {
+    public String getValueAtIndex(int index) {
+        this.moveFront(); 
+        while(position() != index){
+            this.moveNext();
+        }
+        return this.getCursor();
 
     }
  
     // Contains - checks if the element is present in the list
     public boolean contains (String x) {
-
+        this.moveFront(); 
+        while(position() != -1){
+            if(this.getCursor().equals(x)){
+                return true;
+            }
+            this.moveNext();
+        }
+        return false;
     }
 
     /* Manipulator Functions */
 
     // moveFront - move cursor to first element
     public void moveFront () {
-
+        if(this.length > 0){
+            this.position = 0;
+            this.cursor = this.front;
+        }
     }
  
     // moveBack - move cursor to last element
-    public void moveBack (int index) {
+    public void moveBack () {
 
     }
     
     // moveNext - move cursor to the next element
-    public void moveNext (String x) {
+    public void moveNext () {
 
     }
  
     // movePrev - move cursor to the previous element
-    public void movePrev (String x) {
+    public void movePrev () {
 
     }
     
@@ -180,4 +197,12 @@ public class LinkedList{
     public void setClockPointer (int value) {
 
     }
-}
+
+    public String toString(){
+        String s = "";
+        for(this.moveFront(); position() != -1; this.moveNext()){
+            s += this.getCursor();
+        }
+        return s;
+    }
+} 
