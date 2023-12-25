@@ -4,17 +4,13 @@ This will be used to simulate the cache.
 */
 
 public class LinkedList{
+    // Main Method
+    public static void main(String[] args){
+        System.out.println("Linked List Class" + node );
+    }
 
-    private int position;
-    private int length;  
-    private int clockPointer;
-    private int compulsoryMisses;
-    private int capacityMisses;
-    private Node front;
-    private Node back;
-    private Node cursor;
-
-    private class Node {
+    // Node Class
+    private class Node{
         Node prev;
         Node next;
         String data;
@@ -29,13 +25,19 @@ public class LinkedList{
         }
     }
 
-    public static void main(String[] args){
-        System.out.println("Linked List Class" + node );
-    }
+    // Declare list instance variables
+    private int position;
+    private int length;  
+    private int clockPointer;
+    private int compulsoryMisses;
+    private int capacityMisses;
+    private Node front;
+    private Node back;
+    private Node cursor;
 
-    // initalize linked list instance
-    public LinkedList () {
-        this.position = 0;
+    // Constructor
+    public LinkedList() {
+        this.position = -1;
         this.length = 0;  
         this.clockPointer = 0;
         this.compulsoryMisses = 0;
@@ -53,7 +55,7 @@ public class LinkedList{
     }
 
     // length - returns current length of list
-    public int length () {
+    public int length() {
         return this.length;
     }
     
@@ -101,56 +103,87 @@ public class LinkedList{
  
     // moveBack - move cursor to last element
     public void moveBack () {
-
+        if(this.length > 0){
+            this.position = this.length - 1;
+            this.cursor = this.back;
+        }
     }
     
     // moveNext - move cursor to the next element
     public void moveNext () {
+        if(this.length - 1 > this.position){
+            this.position = this.position + 1;
+            this.cursor = this.cursor.next;
+        }
 
+        else if(this.length - 1 == this.position){
+            this.position = -1;
+            this.cursor = null;
+        }
     }
  
     // movePrev - move cursor to the previous element
     public void movePrev () {
+        if(this.length - 1 < this.position){
+            this.position = this.position - 1;
+            this.cursor = this.cursor.prev;
+        }
 
+        else if(position == 0){
+            this.position = -1;
+            this.cursor = null;
+        }
     }
     
     // prepend - add value at beginning of list
-    public void prepend (String x) {
+    public void prepend(String x) {
 
     }
  
     // append - add value at end of list
-    public void append (String x) {
-
+    public void append(String x) {
+        Node n = new Node(x);
+        if(this.length == 0){
+            this.front = n;
+            this.back = n;
+            this.length = 1;
+            this.position = 0;
+        }
+        else{
+            this.back.next = n;
+            n.prev = this.back;
+            this.back = n;
+            this.length++;
+        }
     }
 
     // insertBefore - insert node before cursor element
-    public void insertBefore (String x) {
+    public void insertBefore(String x) {
 
     }
     
     // insertAfter - insert node after cursor element
-    public void insertAfter (String x) {
+    public void insertAfter(String x) {
 
     }
  
     // deleteFront - delete the first element of the list
-    public void deleteFront (String x) {
+    public void deleteFront(String x) {
 
     }
  
     // deleteBack - delete the last element of the list
-    public void deleteBack () {
+    public void deleteBack() {
 
     }
  
     // delete element at cursor
-    public void delete () {
+    public void delete() {
 
     }
  
     // printList 
-    public void printList () {
+    public void printList() {
 
     }
 
@@ -198,6 +231,8 @@ public class LinkedList{
 
     }
 
+
+    // Return object in string form
     public String toString(){
         String s = "";
         for(this.moveFront(); position() != -1; this.moveNext()){
