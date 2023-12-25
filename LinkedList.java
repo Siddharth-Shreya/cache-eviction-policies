@@ -62,26 +62,26 @@ public class LinkedList{
         return this.position;
     }
 
-    // Get - get value at cursor
-    public String getCursor() {
+    // getValueAtCursor - get value at cursor
+    public String getValueAtCursor() {
         return this.cursor.data;
     }
  
     // getValueAtIndex - get value in list at a specified index
     public String getValueAtIndex(int index) {
         this.moveFront(); 
-        while(position() != index){
+        while(this.position() != index){
             this.moveNext();
         }
-        return this.getCursor();
+        return this.getValueAtCursor();
 
     }
  
     // Contains - checks if the element is present in the list
     public boolean contains (String x) {
         this.moveFront(); 
-        while(position() != -1){
-            if(this.getCursor().equals(x)){
+        while(this.position() != -1){
+            if(this.getValueAtCursor().equals(x)){
                 return true;
             }
             this.moveNext();
@@ -201,7 +201,7 @@ public class LinkedList{
     public String toString(){
         String s = "";
         for(this.moveFront(); position() != -1; this.moveNext()){
-            s += this.getCursor();
+            s += this.getValueAtCursor();
         }
         return s;
     }
