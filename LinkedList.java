@@ -6,7 +6,7 @@ This will be used to simulate the cache.
 public class LinkedList{
     // Main Method
     public static void main(String[] args){
-        System.out.println("Linked List Class" + node );
+        
     }
 
     // Node Class
@@ -137,7 +137,23 @@ public class LinkedList{
     
     // prepend - add value at beginning of list
     public void prepend(String x) {
+        Node n = new Node(x);
+        if(this.length == 0){
+            this.front = n;
+            this.back = n;
+            this.length = 1;
+            this.position = 0;
+        }
+        else{
+            this.front.prev = n;
+            n.next = this.front;
+            this.front = n;
+            this.length++;
+        }
 
+        if(this.position != -1){
+            this.position++;
+        }
     }
  
     // append - add value at end of list
@@ -159,84 +175,142 @@ public class LinkedList{
 
     // insertBefore - insert node before cursor element
     public void insertBefore(String x) {
+        if(this.length == 0){
+            this.prepend(x);
+            return;
+        }
+        Node n = new Node(x);
+        this.cursor.prev = n;
+        n.next = this.cursor;
+        this.cursor.prev.next = n;
+        n.prev = this.cursor.prev;
 
+        this.position++;
+        this.length++;
     }
     
     // insertAfter - insert node after cursor element
     public void insertAfter(String x) {
+        if(this.length == 0){
+            this.append(x);
+            return;
+        }
+        Node n = new Node(x);
+        this.cursor.next = n;
+        n.prev = this.cursor;
+        this.cursor.next.next.prev = n;
+        n.next = this.cursor.next.next;
+        
+
+        this.position++;
+        this.length++;
 
     }
  
     // deleteFront - delete the first element of the list
-    public void deleteFront(String x) {
-
+    public void deleteFront() {
+        if(this.cursor == this.front){
+            this.cursor = null;
+            this.position = -1;
+        }
+        if(this.length > 1){
+            this.front = this.front.next;
+            this.front.prev = null;
+        }
+        else{
+            this.front = null;
+            this.back = null;
+        }
+        if(this.position != -1){
+            this.position--;
+        }
+        this.length--;
     }
  
     // deleteBack - delete the last element of the list
     public void deleteBack() {
-
+        if(this.cursor == this.back){
+            this.cursor = null;
+            this.position = -1;
+        }
+        if(this.length > 1){
+            this.back = this.back.prev;
+            this.back.next = null;
+        }
+        else{
+            this.front = null;
+            this.back = null;
+        }
+        this.length--;
     }
  
     // delete element at cursor
     public void delete() {
+        if(this.cursor == this.front){
+            this.deleteFront();
+            return;
+        }
+        else if(this.cursor == this.back){
+            this.deleteBack();
+            return;
+        }
+        this.cursor.prev.next = this.cursor.next;
+        this.cursor.next.prev = this.cursor.prev;
 
-    }
- 
-    // printList 
-    public void printList() {
-
+        this.cursor = null;
+        this.position = -1;
+        this.length--;
     }
 
     /* Cache specific */
 
     // get compulsory misses
     public int getCompulsoryMisses () {
-
+        return this.compulsoryMisses;
     }
  
     // increment compulsory misses
     public void incrementCompulsoryMisses () {
-
+        this.compulsoryMisses++;
     }
 
     // get capacity misses
     public int getCapacityMisses () {
-
+        return this.capacityMisses;
     }
 
     // increment capacity misses
     public void incrementCapacityMisses () {
-
+        this.capacityMisses++;
     }
 
     /* Clock specific */
 
     // get reference bit
-    public void getReferenceBit () {
-
+    public int getReferenceBit() {
+        return this.cursor.referenceBit;
     }
  
     // set reference bit
-    public void setReferenceBit (int value) {
-
+    public void setReferenceBit(int x) {
+        this.cursor.referenceBit = x;
     }
  
     // get clock pointer
-    public int getClockPointer () {
-
+    public int getClockPointer() {
+        return this.clockPointer;
     }
     
     // set clock pointer
-    public void setClockPointer (int value) {
-
+    public void setClockPointer(int x) {
+        this.clockPointer = x;
     }
-
 
     // Return object in string form
     public String toString(){
         String s = "";
         for(this.moveFront(); position() != -1; this.moveNext()){
-            s += this.getValueAtCursor();
+            s += " " + this.getValueAtCursor();
         }
         return s;
     }
