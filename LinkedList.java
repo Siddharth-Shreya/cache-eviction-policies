@@ -103,6 +103,20 @@ public class LinkedList{
         return this.getValueAtCursor();
 
     }
+
+    public void setValueAtIndex (String x, int index) {
+        if (this.length == 0){
+           throw new ArrayIndexOutOfBoundsException("Error: can't call setValueAtIndex() when list is empty.");
+        }
+        if (this.position == -1){
+           throw new ArrayIndexOutOfBoundsException("Error: can't call setValueAtIndex() when cursor position is invalid.");
+        }
+        this.moveFront(); 
+        while(this.position() != index){
+            this.moveNext();
+        }
+        this.cursor.data = x;
+    }
  
     // Contains - checks if the element is present in the list
     public boolean contains (String x) {
