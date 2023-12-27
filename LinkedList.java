@@ -51,44 +51,26 @@ public class LinkedList{
 
     // front - returns value of first element
     public String front() {
-        if (this == null){
-            System.out.println("Error: can't call front() on nonexistent list.");
-            return "Error";
-        }
         if (this.length == 0){
-            System.out.println("Error: can't call front() on empty list.");
-            return "Error";
+           throw new ArrayIndexOutOfBoundsException("Error: can't call front() on empty list.");
         }
         return this.front.data;
     }
 
     public String back() {
-        if (this == null){
-            System.out.println("Error: can't call back() on nonexistent list.");
-            return "Error";
-        }
         if (this.length == 0){
-            System.out.println("Error: can't call back() on empty list.");
-            return "Error";
+           throw new ArrayIndexOutOfBoundsException("Error: can't call back() on empty list.");
         }
         return this.back.data;
     }
 
     // length - returns current length of list
     public int length() {
-        if (this == null){
-            System.out.println("Error: can't call length() on nonexistent list.");
-            return -1000;
-        }
         return this.length;
     }
     
     // Position - gets position at which cursor is at
     public int position() {
-        if (this == null){
-            System.out.println("Error: can't call position() on nonexistent list.");
-            return -1000;
-        }
         if (this.cursor == null){
             return -1;
         }
@@ -97,34 +79,22 @@ public class LinkedList{
 
     // getValueAtCursor - get value at cursor
     public String getValueAtCursor() {
-        if (this == null){
-            System.out.println("Error: can't call getValueAtCursor() on nonexistent list.");
-            return "Error";
-        }
         if (this.length == 0){
-            System.out.println("Error: can't call getValueAtCursor() when list is empty.");
-            return "Error";
+           throw new ArrayIndexOutOfBoundsException("Error: can't call getValueAtCursor() when list is empty.");
         }
         if (this.position == -1){
-            System.out.println("Error: can't call getValueAtCursor() when cursor position is invalid.");
-            return "Error";
+           throw new ArrayIndexOutOfBoundsException("Error: can't call getValueAtCursor() when cursor position is invalid.");
         }
         return this.cursor.data;
     }
  
     // getValueAtIndex - get value in list at a specified index
     public String getValueAtIndex(int index) {
-        if (this == null){
-            System.out.println("Error: can't call getValueAtIndex() on nonexistent list.");
-            return "Error";
-        }
         if (this.length == 0){
-            System.out.println("Error: can't call getValueAtIndex() when list is empty.");
-            return "Error";
+           throw new ArrayIndexOutOfBoundsException("Error: can't call getValueAtIndex() when list is empty.");
         }
         if (this.position == -1){
-            System.out.println("Error: can't call getValueAtIndex() when cursor position is invalid.");
-            return "Error";
+           throw new ArrayIndexOutOfBoundsException("Error: can't call getValueAtIndex() when cursor position is invalid.");
         }
         this.moveFront(); 
         while(this.position() != index){
@@ -136,17 +106,11 @@ public class LinkedList{
  
     // Contains - checks if the element is present in the list
     public boolean contains (String x) {
-        if (this == null){
-            System.out.println("Error: can't call contains() on nonexistent list.");
-            return false;
-        }
         if (this.length == 0){
-            System.out.println("Error: can't call contains() when list is empty.");
-            return false;
+           throw new ArrayIndexOutOfBoundsException("Error: can't call contains() when list is empty.");
         }
         if (this.position == -1){
-            System.out.println("Error: can't call contains() when cursor position is invalid.");
-            return false;
+           throw new ArrayIndexOutOfBoundsException("Error: can't call contains() when cursor position is invalid.");
         }
         this.moveFront(); 
         while(this.position() != -1){
@@ -162,13 +126,8 @@ public class LinkedList{
 
     // moveFront - move cursor to first element
     public void moveFront () {
-        if (this == null){
-            System.out.println("Error: can't call moveFront() on nonexistent list.");
-            return;
-        }
         if (this.length == 0){
-            System.out.println("Error: can't call moveFront() when list is empty.");
-            return;
+           throw new ArrayIndexOutOfBoundsException("Error: can't call moveFront() when list is empty.");
         }
         if(this.length > 0){
             this.position = 0;
@@ -178,13 +137,8 @@ public class LinkedList{
  
     // moveBack - move cursor to last element
     public void moveBack () {
-        if (this == null){
-            System.out.println("Error: can't call moveBack() on nonexistent list.");
-            return;
-        }
         if (this.length == 0){
-            System.out.println("Error: can't call moveBack() when list is empty.");
-            return;
+           throw new ArrayIndexOutOfBoundsException("Error: can't call moveBack() when list is empty.");
         }
         if(this.length > 0){
             this.position = this.length - 1;
@@ -194,13 +148,8 @@ public class LinkedList{
     
     // moveNext - move cursor to the next element
     public void moveNext () {
-        if(this == null){
-            System.out.println("Error: can't call moveNext() on nonexistent list.");
-            return;
-        }
         if(this.length == 0){
-            System.out.println("Error: can't call moveNext() when list is empty.");
-            return;
+           throw new ArrayIndexOutOfBoundsException("Error: can't call moveNext() when list is empty.");
         }
         if(this.length - 1 > this.position){
             this.position = this.position + 1;
@@ -214,13 +163,8 @@ public class LinkedList{
  
     // movePrev - move cursor to the previous element
     public void movePrev () {
-        if(this == null){
-            System.out.println("Error: can't call movePrev() on nonexistent list.");
-            return;
-        }
         if(this.length == 0){
-            System.out.println("Error: can't call movePrev() when list is empty.");
-            return;
+           throw new ArrayIndexOutOfBoundsException("Error: can't call movePrev() when list is empty.");
         }
         if(this.length - 1 < this.position){
             this.position = this.position - 1;
@@ -234,10 +178,6 @@ public class LinkedList{
     
     // prepend - add value at beginning of list
     public void prepend(String x) {
-        if(this == null){
-            System.out.println("Error: can't call prepend() on nonexistent list.");
-            return;
-        }
         Node n = new Node(x);
         if(this.length == 0){
             this.front = n;
@@ -258,10 +198,6 @@ public class LinkedList{
  
     // append - add value at end of list
     public void append(String x) {
-        if(this == null){
-            System.out.println("Error: can't call append() on nonexistent list.");
-            return;
-        }
         Node n = new Node(x);
         if(this.length == 0){
             this.front = n;
@@ -279,17 +215,11 @@ public class LinkedList{
 
     // insertBefore - insert node before cursor element
     public void insertBefore(String x) {
-        if(this == null){
-            System.out.println("Error: can't call insertBefore() on nonexistent list.");
-            return;
-        }
         if(this.length == 0){
-            System.out.println("Error: can't call insertBefore() when list is empty.");
-            return;
+           throw new ArrayIndexOutOfBoundsException("Error: can't call insertBefore() when list is empty.");
         }
         if(this.position == -1 || this.cursor == null){
-            System.out.println("Error: can't call insertBefore() on nonexistent list.");
-            return;
+           throw new ArrayIndexOutOfBoundsException("Error: can't call insertBefore() on nonexistent list.");
         }
         if(this.length == 0){
             this.prepend(x);
@@ -306,17 +236,11 @@ public class LinkedList{
     
     // insertAfter - insert node after cursor element
     public void insertAfter(String x) {
-        if(this == null){
-            System.out.println("Error: can't call insertAfter() on nonexistent list.");
-            return;
-        }
         if(this.length == 0){
-            System.out.println("Error: can't call insertAfter() when list is empty.");
-            return;
+           throw new ArrayIndexOutOfBoundsException("Error: can't call insertAfter() when list is empty.");
         }
         if(this.position == -1 || this.cursor == null){
-            System.out.println("Error: can't call insertAfter() on nonexistent list.");
-            return;
+           throw new ArrayIndexOutOfBoundsException("Error: can't call insertAfter() on nonexistent list.");
         }
         if(this.length == 0){
             this.append(x);
@@ -334,13 +258,8 @@ public class LinkedList{
  
     // deleteFront - delete the first element of the list
     public void deleteFront() {
-        if(this == null){
-            System.out.println("Error: can't call deleteFront() on nonexistent list.");
-            return;
-        }
         if(this.length == 0){
-            System.out.println("Error: can't call deleteFront() when list is empty.");
-            return;
+           throw new ArrayIndexOutOfBoundsException("Error: can't call deleteFront() when list is empty.");
         }
         if(this.cursor == this.front){
             this.cursor = null;
@@ -362,13 +281,8 @@ public class LinkedList{
  
     // deleteBack - delete the last element of the list
     public void deleteBack() {
-        if(this == null){
-            System.out.println("Error: can't call deleteBack() on nonexistent list.");
-            return;
-        }
         if(this.length == 0){
-            System.out.println("Error: can't call deleteBack() when list is empty.");
-            return;
+           throw new ArrayIndexOutOfBoundsException("Error: can't call deleteBack() when list is empty.");
         }
         if(this.cursor == this.back){
             this.cursor = null;
@@ -387,13 +301,8 @@ public class LinkedList{
  
     // delete element at cursor
     public void delete() {
-        if(this == null){
-            System.out.println("Error: can't call delete() on nonexistent list.");
-            return;
-        }
         if(this.length == 0){
-            System.out.println("Error: can't call delete() when list is empty.");
-            return;
+           throw new ArrayIndexOutOfBoundsException("Error: can't call delete() when list is empty.");
         }
         if(this.cursor == this.front){
             this.deleteFront();
