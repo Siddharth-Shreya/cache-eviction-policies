@@ -1,46 +1,64 @@
 public class LinkedListTest{
     public static void main (String[] args){
         LinkedList A = new LinkedList();
-        LinkedList B = new LinkedList();
-        LinkedList C = null;
+
         for(int i = 1; i <= 10; i++){
             A.append(Integer.toString(i));
-            B.prepend(Integer.toString(i));
         }
         System.out.println("List A: " + A);
-        System.out.println("List B: " + B);
-
+        /* 1 2 3 4 5 6 7 8 9 10 */
         System.out.println("Iterating through List A: ");
         for(A.moveFront(); A.position() >= 0; A.moveNext()){
             System.out.println(A.getValueAtCursor());
         }
-
-        for(A.moveFront(); B.position() >= 0; B.moveNext()){
-            System.out.println(B.getValueAtCursor());
-        }
+        /*
+            1
+            2
+            3
+            4
+            5
+            6
+            7
+            8
+            9
+            10
+        */
 
         A.moveFront();
         System.out.println("Cursor Index after moving front: " + A.position());
+        /* 0 */
 
         for(int i = 0; i < 5; i++){
-            System.out.println("Value at cursor after moving 5 spaces: " + A.getValueAtCursor());
+            System.out.println("Value at cursor before moving " + i + " spaces: " + A.getValueAtCursor());
+            A.moveNext();
         }
-
+        /*
+            Value at cursor after moving 0 spaces: 1
+            Value at cursor after moving 1 spaces: 2
+            Value at cursor after moving 2 spaces: 3
+            Value at cursor after moving 3 spaces: 4
+            Value at cursor after moving 4 spaces: 5
+        */
+        System.out.println("Current cursor element: " + A.getValueAtCursor() + ", Position: " + A.position()); /* 6 */
+        System.out.println("Inserting -1 before cursor element...");
         A.insertBefore("-1");
-        System.out.println(A);
+        System.out.println("List A after inserting -1: " + A); /* 1 2 3 4 5 -1 6 7 8 9 10 */
+        System.out.println("Position: " + A.position());
+        System.out.println("Length of List A: " + A.length()); /* 11 */
 
-        System.out.println("Cursor Index after inserting at index 5: " + A.position());
 
-        System.out.println("Length of List A: " + A.length());
+        System.out.println("Current cursor element: " + A.getValueAtCursor()); /* 6 */
+        System.out.println("Current cursor position: " + A.position());
 
-        A.deleteFront();
         System.out.println("Deleting front of list A...");
-        System.out.println(A);
-
-        System.out.println("ursor Index after deleting front: " + A.position());
+        
+        A.deleteFront();
+        System.out.println("-----------");
+        System.out.println("List A after deleting front element: " + A); /* 2 3 4 5 -1 6 7 8 9 10 */
+        System.out.println("Cursor Index after deleting front: " + A.position()); /*  */
 
         System.out.println("Front of List A now: " + A.front());
-        System.out.println("Length of List A after deleting: " + A.length());
+        System.out.println("Length of List A after deleting an element: " + A.length());
 
         A.insertAfter("-2");
         System.out.println("Value at cursor new: " + A.getValueAtCursor());
@@ -50,11 +68,24 @@ public class LinkedListTest{
         }
 
         System.out.println("Value at cursor after moving prev 3 spaces: " + A.getValueAtCursor());
-        System.out.println(A);
+        System.out.println("List A now: " + A);
 
+        System.out.println("Set index 5 to -3:");
+        A.setValueAtIndex("-3", 5);
+        System.out.println("List A now: " + A);
 
+        System.out.println("Deleting 3 elements from back of List A...");
+        for(int i = 0; i < 3; i++) {
+            A.deleteBack();
+        }
+        System.out.println("List A now: " + A);
+        System.out.println("Back of List A now: " + A.back());
 
+        System.out.println("Now we will delete value at cursor index: " + A.getValueAtCursor());
 
+        A.delete();
+
+        System.out.println("List A after deleting cursor element " + A);
 
     }
 }

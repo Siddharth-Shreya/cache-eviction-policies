@@ -240,32 +240,28 @@ public class LinkedList{
             return;
         }
         Node n = new Node(x);
-        this.cursor.prev = n;
-        n.next = this.cursor;
         this.cursor.prev.next = n;
         n.prev = this.cursor.prev;
+        this.cursor.prev = n;
+        n.next = this.cursor;
         this.position++;
         this.length++;
     }
     
     // insertAfter - insert node after cursor element
     public void insertAfter(String x) {
-        if(this.length == 0){
-           throw new ArrayIndexOutOfBoundsException("Error: can't call insertAfter() when list is empty.");
-        }
         if(this.position == -1 || this.cursor == null){
-           throw new ArrayIndexOutOfBoundsException("Error: can't call insertAfter() on nonexistent list.");
+           throw new ArrayIndexOutOfBoundsException("Error: can't call insertAfter() on invalid cursor position.");
         }
         if(this.length == 0){
             this.append(x);
             return;
         }
         Node n = new Node(x);
+        this.cursor.next.prev = n;
+        n.next = this.cursor.next;
         this.cursor.next = n;
         n.prev = this.cursor;
-        this.cursor.next.next.prev = n;
-        n.next = this.cursor.next.next;
-        this.position++;
         this.length++;
 
     }
