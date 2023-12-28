@@ -376,8 +376,9 @@ public class LinkedList{
     // Return object in string form
     public String toString(){
         String s = "";
-        for(this.moveFront(); position() != -1; this.moveNext()){
-            s += " " + this.getValueAtCursor();
+        Node N = null;
+        for(N = this.front; N != null; N = N.next){
+            s += " " + N.data;
         }
         return s;
     }
