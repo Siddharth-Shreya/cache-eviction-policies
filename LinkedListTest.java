@@ -63,33 +63,33 @@ public class LinkedListTest{
         A.insertAfter("-2");
         System.out.println("List A now: " + A);
         System.out.println("Value at cursor now: " + A.getValueAtCursor()); /* 6 */
-        System.out.println("Value at index 7 now: " + A.getValueAtIndex(7));      
+        System.out.println("Value at index 7 now: " + A.getValueAtIndex(7)); /* 7 */
 
 
         System.out.println("-----------");
         for(int i = 0; i < 4; i++){
             A.movePrev();
         }
-        System.out.println("Value at cursor after moving prev 4 spaces: " + A.getValueAtCursor());
+        System.out.println("Value at cursor after moving prev 4 spaces: " + A.getValueAtCursor()); /* 7 */
         
         System.out.println("-----------");
-        System.out.println("List A now: " + A);
-        System.out.println("Set index 5 to -3:");
+        System.out.println("List A now: " + A); /* 2 3 4 5 -1 6 -2 7 8 9 10 */
+        System.out.println("Set index 5 to -3:"); 
         A.setValueAtIndex("-3", 5);
-        System.out.println("List A now: " + A);
+        System.out.println("List A now: " + A); /* 2 3 4 5 -1 -3 -2 7 8 9 10 */
 
         System.out.println("-----------");
         System.out.println("Deleting 3 elements from back of List A...");
         for(int i = 0; i < 3; i++) {
             A.deleteBack();
         }
-        System.out.println("List A now: " + A);
-        System.out.println("Back of List A now: " + A.back());
+        System.out.println("List A now: " + A); /* 2 3 4 5 -1 -3 -2 7 */
+        System.out.println("Back of List A now: " + A.back()); /* 7 */
 
         System.out.println("-----------");
-        System.out.println("Now we will delete value at cursor index: " + A.getValueAtCursor());
+        System.out.println("Now we will delete value at cursor index: " + A.getValueAtCursor()); /* -3 */
         A.delete();
-        System.out.println("List A after deleting cursor element " + A);
+        System.out.println("List A after deleting cursor element: " + A); /* 2 3 4 5 -1 -2 7 */
         
         System.out.println("-----------");
     }
