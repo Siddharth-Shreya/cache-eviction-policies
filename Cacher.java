@@ -39,6 +39,9 @@ public class Cacher {
 
         while(hasMode == true){
             //Write input to determine the length of the list or whatever. Use int x = s.nextInt();
+            System.out.println("Type in the desired length of the cache.");
+
+            int length = s.nextInt();
         }
 
         //Apparently this is needed but I never use it
@@ -48,5 +51,9 @@ public class Cacher {
 
         cache.moveFront();
         cache.append(null);
+    }
+
+    public void fifo(int length, String s){
+
     }
 }
