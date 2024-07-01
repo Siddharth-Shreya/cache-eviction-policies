@@ -5,13 +5,14 @@ public class Cacher {
         Scanner s = new Scanner(System.in);
         boolean hasMode = false;
 
-        while(hasMode == false){
+        while(!hasMode){
             System.out.println("Welcome to the Cache Simulation! \n-----------\nType 'F' for FIFO, 'L' for LRU, 'C' for Clock, or 'M' for MRU. [Type 'H' for help]");
 
             String mode = s.next();
 
             if(mode.equals("F") || mode.equals("")){
                 //Call FIFO specific methods
+                fifo();
                 hasMode = true;
             }
             else if(mode.equals("L")){
@@ -22,7 +23,7 @@ public class Cacher {
                 //Call Clock specific methods
                 hasMode = true;
             }
-            else if(mode.equals("M"){
+            else if(mode.equals("M")){
                 //Call MRU specific methods
                 hasMode = true;
             }
@@ -36,24 +37,36 @@ public class Cacher {
                 System.out.println("'M' - MRU simulates a cache based on [write description].");
             }
         }
-
-        while(hasMode == true){
-            //Write input to determine the length of the list or whatever. Use int x = s.nextInt();
-            System.out.println("Type in the desired length of the cache.");
-
-            int length = s.nextInt();
-        }
-
         //Apparently this is needed but I never use it
         s.close();
+        }
+        
+        public static void fifo(){
+            Scanner s = new Scanner(System.in);
+            System.out.println("Type in the desired length of the cache: ");
+            int length = s.nextInt();
 
-        LinkedList cache = new LinkedList();
+            LinkedList cache = new LinkedList();
 
-        cache.moveFront();
-        cache.append(null);
-    }
+            while(length > 0){
+                System.out.println("Type 'exit' to exit the fifo simulation.\nEnter value: ");
+                String value = s.next();
 
-    public void fifo(int length, String s){
+                if(value.equals("exit")){
+                    length = -1;
+                }
 
+                if(cache.length() > 0 && cache.contains(value)){
+                    System.out.println("Cache hit for value: " + value);
+                }
+                else{
+                    System.out.println("Cache miss for value: " + value);
+                    cache.append(value);
+                }
+            }
+
+            System.out.println("Final cache contents: " + cache);
+            s.close();
+        
     }
 }
