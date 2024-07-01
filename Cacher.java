@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Cacher {
+public class Cacher{
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         boolean hasMode = false;
@@ -37,7 +37,6 @@ public class Cacher {
                 System.out.println("'M' - MRU simulates a cache based on [write description].");
             }
         }
-        //Apparently this is needed but I never use it
         s.close();
         }
         
@@ -53,20 +52,20 @@ public class Cacher {
                 String value = s.next();
 
                 if(value.equals("exit")){
-                    length = -1;
+                    break;
                 }
-
                 if(cache.length() > 0 && cache.contains(value)){
                     System.out.println("Cache hit for value: " + value);
                 }
                 else{
                     System.out.println("Cache miss for value: " + value);
+                    if(cache.length() >= length){
+                        cache.deleteFront();
+                    }
                     cache.append(value);
                 }
             }
-
             System.out.println("Final cache contents: " + cache);
             s.close();
-        
     }
 }

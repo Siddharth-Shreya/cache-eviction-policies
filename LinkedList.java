@@ -224,6 +224,8 @@ public class LinkedList{
             n.prev = this.back;
             this.back = n;
             this.length++;
+            this.position++; //Issues with FIFO
+            
         }
     }
 
