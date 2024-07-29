@@ -17,6 +17,7 @@ public class Cacher{
             }
             else if(mode.equals("L")){
                 //Call LRU specific methods
+                lru();
                 hasMode = true;
             }
             else if(mode.equals("C")){
@@ -67,5 +68,40 @@ public class Cacher{
             }
             System.out.println("Final cache contents: " + cache);
             s.close();
+        }
+        public static void lru(){
+            Scanner s = new Scanner(System.in);
+            System.out.println("Type in the desired length of the cache: ");
+            int length = s.nextInt();
+
+            LinkedList cache = new LinkedList();
+
+            while(true){
+                System.out.println("Type 'exit' to exit the lru simulation.\nEnter value: ");
+                String value = s.next();
+
+                if(value.equals("exit")){
+                    break;
+                }
+                if(cache.length() > 0 && cache.contains(value)){
+                    System.out.println("Cache hit for value: " + value);
+                    cache.moveFront();
+                    while(!cache.getValueAtCursor().equals(value)){
+                        cache.moveNext();
+                    }
+                    cache.delete();
+                    cache.append(value);
+                }
+                else{
+                    System.out.println("Cache miss for value: " + value);
+                    if(cache.length() >= length){
+                        cache.deleteFront();
+                    }
+                    cache.append(value);
+                }
+            }
+            System.out.println("Final cache contents: " + cache);
+            s.close();
     }
+
 }
