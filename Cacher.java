@@ -107,7 +107,41 @@ public class Cacher{
      }
 
         public static void Clock(){
-            
+            Scanner s = new Scanner(System.in);
+            System.out.println("Type in the desired length of the cache: ");
+            int length = s.nextInt();
+
+            LinkedList cache = new LinkedList();
+
+            while(true){
+                System.out.println("Type 'exit' to exit the clock simulation.\nEnter value: ");
+                String value = s.next();
+
+                if(value.equals("exit")){
+                    break;
+                }
+
+                if(cache.length() > 0 && cache.contains(value)){
+                    String item = cache.getValueAtCursor();
+                    System.out.println("Cache hit for value: " + value);
+                    cache.setReferenceBit(item);
+                    return;
+                }
+
+                if (cache.length() == length){
+                    String item = cache.getValueAtCursor(cache.getClockPointer());
+                    while (cache.getReferenceBit(item) == 1){
+                        cache.setReferenceBit(0);
+                        cache.setClockPointer((cache.getClockPointer() + 1) % length);
+                        item = cache.getValueAtIndex(cache.getClockPointer())
+                    }
+                    cache.setValueAtIndex(cache.getClockPointer());
+                    cache.setClockPointer((cache.getClockPointer() + 1) % length);
+                    return;
+                }
+            }
+            cache.append(s);
+
         }
 
         public static void MRU(){
