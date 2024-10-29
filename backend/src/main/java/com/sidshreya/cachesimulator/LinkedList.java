@@ -94,15 +94,11 @@ public class LinkedList{
         if (this.length == 0){
            throw new IllegalStateException("Error: can't call getValueAtIndex() when list is empty.");
         }
-        if (this.position == -1){
-           throw new IllegalStateException("Error: can't call getValueAtIndex() when cursor position is invalid.");
-        }
         this.moveFront(); 
         while(this.position() != index){
             this.moveNext();
         }
         return this.getValueAtCursor();
-
     }
 
     public void setValueAtIndex (String x, int index) {
@@ -120,22 +116,23 @@ public class LinkedList{
     }
  
     // Contains - checks if the element is present in the list
-    public boolean contains (String x) {
-        if (this.length == 0){
-           throw new IllegalStateException("Error: can't call contains() when list is empty.");
+    public boolean contains(String x) {
+        if (this.length == 0) {
+            throw new IllegalStateException("Error: can't call contains() when list is empty.");
         }
-        if (this.position == -1){
-           throw new IllegalStateException("Error: can't call contains() when cursor position is invalid.");
-        }
-        this.moveFront(); 
-        while(this.position() != -1){
-            if(this.getValueAtCursor().equals(x)){
-                return true;
+    
+        this.moveFront(); // Move the cursor to the front of the list
+        while (this.position() != -1) { // Continue until the end of the list
+            if (this.cursor != null && this.getValueAtCursor().equals(x)) { // Check if current element matches
+                return true; // Element found
             }
-            this.moveNext();
+            this.moveNext(); // Move to the next element
         }
-        return false;
-    }
+    
+        return false; // Element not found
+    }    
+    
+    
 
     /* Manipulator Functions */
 
@@ -162,19 +159,19 @@ public class LinkedList{
     }
     
     // moveNext - move cursor to the next element
-    public void moveNext () {
-        if(this.length == 0){
-           throw new IllegalStateException("Error: can't call moveNext() when list is empty.");
+    public void moveNext() {
+        if (this.length == 0) {
+            throw new IllegalStateException("Error: can't call moveNext() when list is empty.");
         }
-        if(this.length - 1 > this.position){
-            this.position = this.position + 1;
+        if (this.cursor != null) {
             this.cursor = this.cursor.next;
-        }
-        else if(this.length - 1 == this.position){
-            this.position = -1;
-            this.cursor = null;
+            this.position++;
+        }    
+        if (this.cursor == null) {
+            this.position = -1; 
         }
     }
+    
  
     // movePrev - move cursor to the previous element
     public void movePrev () {
@@ -217,17 +214,14 @@ public class LinkedList{
         if(this.length == 0){
             this.front = n;
             this.back = n;
-            this.length = 1;
             this.position = 0;
         }
         else{
             this.back.next = n;
             n.prev = this.back;
             this.back = n;
-            this.length++;
-            this.position++; //Issues with FIFO
-            
         }
+        this.length++;
     }
 
     // insertBefore - insert node before cursor element
@@ -357,13 +351,24 @@ public class LinkedList{
     /* Clock specific */
 
     // get reference bit
-    public int getReferenceBit() {
+    public int getReferenceBit(String x) {
+        for (this.moveFront(); this.position() >= 0; this.moveNext()) {
+            if (this.getValueAtCursor().equals(x)) {
+                break;
+            }
+        }
         return this.cursor.referenceBit;
     }
  
     // set reference bit
-    public void setReferenceBit(int x) {
-        this.cursor.referenceBit = x;
+    public void setReferenceBit(String x, int setNum) {
+        this.moveFront(); 
+        while(this.position() != -1){
+            if(this.cursor != null && this.getValueAtCursor().equals(x)){
+                this.cursor.referenceBit = setNum;
+            }
+            this.moveNext();
+        }
     }
  
     // get clock pointer

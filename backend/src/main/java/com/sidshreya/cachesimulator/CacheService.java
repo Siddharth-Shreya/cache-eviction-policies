@@ -64,32 +64,35 @@ public class CacheService {
     }
 
     public boolean addValueClock(String value) {
-        boolean hitOrMiss;
+        boolean hitOrMiss = false;
+    
         if (cache.length() > 0 && cache.contains(value)) {
-            String item = cache.getValueAtCursor();
             hitOrMiss = true;
-            cache.setReferenceBit(1);
+            cache.setReferenceBit(value, 1);
             return hitOrMiss;
         } else {
-            hitOrMiss = false;
+            if (cache.length() == cacheSize) {
+        
+                String item = cache.getValueAtIndex(cache.getClockPointer());
+        
+                while (cache.getReferenceBit(item) == 1) {
+                    cache.setReferenceBit(item, 0);
+                    cache.setClockPointer((cache.getClockPointer() + 1) % cacheSize);
+                    item = cache.getValueAtIndex(cache.getClockPointer());
+                }
+        
+                cache.setValueAtIndex(value, cache.getClockPointer());
+                cache.setClockPointer((cache.getClockPointer() + 1) % cacheSize);
+                return hitOrMiss;
+            } else {
+                cache.append(value);
+                return hitOrMiss;
+            }        
         }
     
-        if (cache.length() == cacheSize) {
-            String item = cache.getValueAtIndex(cache.getClockPointer());
-            System.out.println("ITEM:" + item)
-            while (cache.getReferenceBit() == 1) {
-                cache.setReferenceBit(0);
-                cache.setClockPointer((cache.getClockPointer() + 1) % cacheSize);
-                item = cache.getValueAtIndex(cache.getClockPointer());
-            }
-            cache.setValueAtIndex(value, cache.getClockPointer());
-            cache.setClockPointer((cache.getClockPointer() + 1) % cacheSize);
-        } else {
-            cache.append(value);
-        }
-
-        return hitOrMiss;
+        
     }
+    
     
 
     public boolean addValueMru(String value) {

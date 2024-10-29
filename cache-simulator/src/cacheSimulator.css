@@ -62,7 +62,7 @@ a{
     flex-direction: column;
     width: 100%;
     gap: 20px;
-    min-width: 500px;
+    min-width: 50%;
 }
 
 .box-container {

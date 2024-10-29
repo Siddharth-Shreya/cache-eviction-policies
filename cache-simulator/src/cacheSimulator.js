@@ -53,13 +53,14 @@ const CacheSimulator = () => {
         } catch (error) {
             console.error("Error adding element to cache:", error);
         }
-        setAddedElem('');
+        //setAddedElem('');
     }
 
     useEffect(() => {
+        console.log("Added element:", addedElem)
         console.log("Cache:", cache);
         console.log("hitOrMiss:", hitOrMiss);
-    }, [cache, hitOrMiss]);
+    }, [cache, hitOrMiss, addedElem]);
 
     return (
         <div>
