@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './cacheSimulator.css';
+import axios from 'axios';
 
 const CacheSimulator = () => {
     const [policy, setPolicy] = useState('F');
@@ -8,33 +9,63 @@ const CacheSimulator = () => {
     const [cache, setCache] = useState([]);
     const [addedElem, setAddedElem] = useState('');
 
-    const createCache = () => {
+    const createCache = async () => {
         if (length <= 0){
             alert("Cache length must be greater than zero!");
             return;
         }
-        console.log(`Creating cache with policy: ${policy} and length: ${length}`);
-        setCache(new Array(parseInt(length)).fill(null));
-        setCacheCreated(true);
+        try {
+            const response = await axios.post('http://localhost:8080/cache/initialize', null, {
+                params: { length, policy }
+            });
+            console.log(response.data);
+            setCache(new Array(parseInt(length)).fill(null));
+            setCacheCreated(true);
+        } catch (error) {
+            console.error("Error initializing cache:", error);
+        }
     };
 
     const resetCache = () => {
         setCacheCreated(false);
         setPolicy('F');
         setLength(1);
+        setCache([]);
     };
 
-    const addElementToCache = () => {
-        // send input element to backend 
-        // run policy
-        // get changed cache back
-        // display that in current format
+    const addElementToCache = async () => {
+        try {
+            // Add element to cache
+            const response = await axios.post('http://localhost:8080/cache/add', {
+                "value": addedElem
+            });
+            console.log("Full Response:", response); 
+            // Get the updated cache back and reformat
+            let cacheContents = String(response.data).trim().split(" ");
+            console.log("cache contents:", cacheContents);
+            console.log(typeof cacheContents);
+            while (cacheContents.length < length){
+                cacheContents.push(" ");
+            }
+            setCache(cacheContents);
+            console.log("Current cache:", cache)
+            
+        } catch (error) {
+            console.error("Error adding element to cache:", error);
+        }
+        setAddedElem('');
     }
+
+    useEffect(() => {
+        console.log("Updated cache state:", cache);
+    }, [cache]);
 
     return (
         <div>
             <h1 className="header">Cache Eviction Policies Simulator</h1>
-            
+            <div>
+                Explanation of different eviction policies.
+            </div>
             <div className="container">
                 <h2>Create Cache</h2>
                 <label className="label">
@@ -88,11 +119,12 @@ const CacheSimulator = () => {
             {
                 cacheCreated && (
                     <div className="box-container">
-                        {cache.map((index) => (
+                        {cache.map((item, index) => (
                             <div key={index} className="box">
-                                {index}
+                                {item}
                             </div>
                         ))}
+                        <h3>Hit or miss</h3>
                     </div>
                 )
             }
