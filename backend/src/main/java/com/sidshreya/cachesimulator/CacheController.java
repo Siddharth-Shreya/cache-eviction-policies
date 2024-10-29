@@ -18,10 +18,10 @@ public class CacheController {
     }
 
     @PostMapping("/add")
-    public String addValueToCache(@RequestBody CacheRequest request) {
-        cacheService.populateCache(request.getValue());
+    public CacheResponse addValueToCache(@RequestBody CacheRequest request) {
+        boolean hit = cacheService.populateCache(request.getValue());
         String contents = cacheService.getCacheContents();
-        return contents;
+        return new CacheResponse(contents, hit ? "HIT" : "MISS");
     }
 
     @GetMapping("/contents")

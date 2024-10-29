@@ -13,34 +13,38 @@ public class CacheService {
         this.cache = new LinkedList();
     }
 
-    public void populateCache(String value) {
+    public boolean populateCache(String value) {
         if (cachePolicy.equals("F")){
-            addValueFifo(value);
+            return addValueFifo(value);
         } else if (cachePolicy.equals("L")){
-            addValueLru(value);
+            return addValueLru(value);
         } else if (cachePolicy.equals("M")){
-            addValueMru(value);
+            return addValueMru(value);
         } else if (cachePolicy.equals("C")){
-            addValueClock(value);
+            return addValueClock(value);
         }
+        return false;
     }
 
-    public void addValueFifo(String value) {
+    public boolean addValueFifo(String value) {
+        boolean hitOrMiss;
         if(cache.length() > 0 && cache.contains(value)){
-            System.out.println("Cache hit for value: " + value);
+            hitOrMiss = true;
         }
         else{
-            System.out.println("Cache miss for value: " + value);
+            hitOrMiss = false;
             if(cache.length() >= cacheSize){
                 cache.deleteFront();
             }
             cache.append(value);
         }
+        return hitOrMiss;
     }
 
-    public void addValueLru(String value) {
+    public boolean addValueLru(String value) {
+        boolean hitOrMiss;
         if(cache.length() > 0 && cache.contains(value)){
-            System.out.println("Cache hit for value: " + value);
+            hitOrMiss = true;
             cache.moveFront();
             while(!cache.getValueAtCursor().equals(value)){
                 cache.moveNext();
@@ -49,24 +53,30 @@ public class CacheService {
             cache.append(value);
         }
         else{
-            System.out.println("Cache miss for value: " + value);
+            hitOrMiss = false;
             if(cache.length() >= cacheSize){
                 cache.deleteFront();
             }
             cache.append(value);
         }
+
+        return hitOrMiss;
     }
 
-    public void addValueClock(String value) {
+    public boolean addValueClock(String value) {
+        boolean hitOrMiss;
         if (cache.length() > 0 && cache.contains(value)) {
             String item = cache.getValueAtCursor();
-            System.out.println("Cache hit for value: " + value);
+            hitOrMiss = true;
             cache.setReferenceBit(1);
-            return;
+            return hitOrMiss;
+        } else {
+            hitOrMiss = false;
         }
     
         if (cache.length() == cacheSize) {
             String item = cache.getValueAtIndex(cache.getClockPointer());
+            System.out.println("ITEM:" + item)
             while (cache.getReferenceBit() == 1) {
                 cache.setReferenceBit(0);
                 cache.setClockPointer((cache.getClockPointer() + 1) % cacheSize);
@@ -77,12 +87,15 @@ public class CacheService {
         } else {
             cache.append(value);
         }
+
+        return hitOrMiss;
     }
     
 
-    public void addValueMru(String value) {
+    public boolean addValueMru(String value) {
+        boolean hitOrMiss;
         if(cache.length() > 0 && cache.contains(value)){
-            System.out.println("Cache hit for value: " + value);
+            hitOrMiss = true;
             cache.moveFront();
             while(!cache.getValueAtCursor().equals(value)){
                 cache.moveNext();
@@ -91,13 +104,14 @@ public class CacheService {
             cache.append(value);
         }
         else{
-            System.out.println("Cache miss for value: " + value);
+            hitOrMiss = false;
             if(cache.length() >= cacheSize){
                 cache.moveBack();
                 cache.delete();
             }
             cache.append(value);
         }
+        return hitOrMiss;
     }
 
     public String getCacheContents() {

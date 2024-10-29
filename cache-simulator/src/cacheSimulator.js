@@ -7,6 +7,7 @@ const CacheSimulator = () => {
     const [length, setLength] = useState(1);
     const [cacheCreated, setCacheCreated] = useState(false)
     const [cache, setCache] = useState([]);
+    const [hitOrMiss, setHitOrMiss] = useState(null);
     const [addedElem, setAddedElem] = useState('');
 
     const createCache = async () => {
@@ -31,6 +32,7 @@ const CacheSimulator = () => {
         setPolicy('F');
         setLength(1);
         setCache([]);
+        setHitOrMiss(null);
     };
 
     const addElementToCache = async () => {
@@ -41,15 +43,13 @@ const CacheSimulator = () => {
             });
             console.log("Full Response:", response); 
             // Get the updated cache back and reformat
-            let cacheContents = String(response.data).trim().split(" ");
-            console.log("cache contents:", cacheContents);
-            console.log(typeof cacheContents);
+            let cacheContents = String(response.data.cacheContents).trim().split(" ");
+            let hitOrMiss = response.data.hitOrMiss;
             while (cacheContents.length < length){
                 cacheContents.push(" ");
             }
             setCache(cacheContents);
-            console.log("Current cache:", cache)
-            
+            setHitOrMiss(hitOrMiss);            
         } catch (error) {
             console.error("Error adding element to cache:", error);
         }
@@ -57,78 +57,102 @@ const CacheSimulator = () => {
     }
 
     useEffect(() => {
-        console.log("Updated cache state:", cache);
-    }, [cache]);
+        console.log("Cache:", cache);
+        console.log("hitOrMiss:", hitOrMiss);
+    }, [cache, hitOrMiss]);
 
     return (
         <div>
+            {/* Heading */}
             <h1 className="header">Cache Eviction Policies Simulator</h1>
             <div>
                 Explanation of different eviction policies.
             </div>
-            <div className="container">
-                <h2>Create Cache</h2>
-                <label className="label">
-                    Cache Policy:
-                    <select value={policy} onChange={(e) => setPolicy(e.target.value)} className="select" disabled={cacheCreated}>
-                        <option value="F">FIFO</option>
-                        <option value="L">LRU</option>
-                        <option value="C">Clock</option>
-                        <option value="M">MRU</option>
-                    </select>
-                </label>
-                <label className="label">
-                    Cache Length:
-                    <input
-                        type="number"
-                        value={length}
-                        onChange={(e) => setLength(e.target.value)}
-                        className="input"
-                        disabled={cacheCreated}
-                    />
-                </label>
-                <div className="button-container">
-                    <button onClick={createCache} className="button" disabled={cacheCreated}>
-                        Create Cache
-                    </button>
-                    {cacheCreated && (
-                        <button onClick={resetCache} className="button">
-                            Create Another Cache
+
+            {/* left and right boxes */}
+            <div className="lr">
+                {/* Cache config */}
+                <div className="container">
+                    <h2>Create Cache</h2>
+                    <label className="label">
+                        Cache Policy:
+                        <select value={policy} onChange={(e) => setPolicy(e.target.value)} className="select" disabled={cacheCreated}>
+                            <option value="F">FIFO</option>
+                            <option value="L">LRU</option>
+                            <option value="C">Clock</option>
+                            <option value="M">MRU</option>
+                        </select>
+                    </label>
+                    <label className="label">
+                        Cache Length:
+                        <input
+                            type="number"
+                            value={length}
+                            onChange={(e) => setLength(e.target.value)}
+                            className="input"
+                            disabled={cacheCreated}
+                        />
+                    </label>
+                    <div className="button-container">
+                        <button onClick={createCache} className="button" disabled={cacheCreated}>
+                            Create Cache
                         </button>
-                    )}
+                        {cacheCreated && (
+                            <button onClick={resetCache} className="button">
+                                Reset Cache
+                            </button>
+                        )}
+                    </div>
+                </div>
+                {/* Cache input and display */}
+                <div className="container">
+                    {   
+                        cacheCreated ? (
+                            <div>
+                                <h2>Add Element to Cache</h2>
+                                <input
+                                    type="text"
+                                    value={addedElem}
+                                    onChange={(e) => setAddedElem(e.target.value)}
+                                    className="input"
+                                />
+                                <button onClick={addElementToCache} className="button">
+                                    Add Element
+                                </button>
+                            </div>
+                        ) : (
+                            <h4>Cache will appear here</h4>
+                        )
+                    }
+
+                    {
+                        cacheCreated && (
+                            <div className="cache-container">
+                                <div className="box-container">
+                                    {cache.map((item, index) => (
+                                        <div key={index} className="box">
+                                            {item}
+                                        </div>
+                                    ))}
+                                </div>
+                                <div style={{marginBottom:"20px"}}>
+                                    {hitOrMiss === "MISS" &&
+                                        (<h3 style={{color:"red"}}>{hitOrMiss}</h3>)
+                                    }
+                                    {hitOrMiss === "HIT" &&
+                                        (<h3 style={{color:"green"}}>{hitOrMiss}</h3>)
+                                    }
+                                </div>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
-
-            {   
-                cacheCreated && (
-                    <div>
-                        <h2>Add Element to Cache</h2>
-                        <input
-                            type="text"
-                            value={addedElem}
-                            onChange={(e) => setAddedElem(e.target.value)}
-                            className="input"
-                        />
-                        <button onClick={addElementToCache} className="button">
-                            Add Element
-                        </button>
-                    </div>
-                )
-            }
-
-            {
-                cacheCreated && (
-                    <div className="box-container">
-                        {cache.map((item, index) => (
-                            <div key={index} className="box">
-                                {item}
-                            </div>
-                        ))}
-                        <h3>Hit or miss</h3>
-                    </div>
-                )
-            }
-
+            
+            <div className='footer'>
+                <p><a href="https://github.com/Siddharth-Shreya/cache-eviction-policies" rel="noreferrer" target="_blank">Source Code</a></p>
+                <p>Built by: <a href="https://www.linkedin.com/in/siddharthsundar" rel="noreferrer" target="_blank">Siddharth Sundar</a> and <a href="https://www.linkedin.com/in/shreyasundar" rel="noreferrer" target="_blank">Shreya Sundar</a></p>
+            </div>
         </div>
     );
 };

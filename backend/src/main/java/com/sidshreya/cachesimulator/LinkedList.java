@@ -382,9 +382,7 @@ public class LinkedList{
         Node N = null;
         for(N = this.front; N != null; N = N.next){
             s += " " + N.data;
-            System.out.println(s);
         }
-        System.out.println("list as string:" + s);
         return s;
     }
 } 
