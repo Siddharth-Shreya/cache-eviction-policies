@@ -1,5 +1,9 @@
-FROM azul/zulu-openjdk:17-latest
-VOLUME /tmp
+FROM openjdk:17-jdk-slim
+
 WORKDIR /app
-COPY build/libs/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+
+COPY build/libs/cachesimulator-0.0.1-SNAPSHOT.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
