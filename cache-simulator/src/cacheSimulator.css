@@ -60,9 +60,8 @@ a{
 .container {
     display: flex;
     flex-direction: column;
-    width: 100%;
     gap: 20px;
-    min-width: 50%;
+    min-width: 40%;
 }
 
 .box-container {
@@ -74,11 +73,26 @@ a{
     border-radius: 8px; 
 }
 
+.about-container {
+    width: 80%;
+    margin: 0 auto;
+    display: grid;   
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.about-cell {
+    text-align: center;
+    padding: 0 16px;
+}
+
 .lr {
+    width: 80%;
+    margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
-    gap: 50px
+    gap: 30px;
 }
 
 .cache-container {

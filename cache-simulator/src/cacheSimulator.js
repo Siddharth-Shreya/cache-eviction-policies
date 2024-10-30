@@ -66,8 +66,23 @@ const CacheSimulator = () => {
         <div>
             {/* Heading */}
             <h1 className="header">Cache Eviction Policies Simulator</h1>
-            <div>
-                Explanation of different eviction policies.
+            <div className="about-container">
+                <div className="about-cell">
+                    <h5>FIFO</h5>
+                    <p>First in, first out: evicts items in the order they were added.</p>
+                </div>
+                <div className="about-cell">
+                    <h5>LRU</h5>
+                    <p>Least recently used: Evicts items that haven't been used recently.</p>
+                </div>
+                <div className="about-cell">
+                    <h5>MRU</h5>
+                    <p>Most recently used: Evicts items that have been used recently.</p>
+                </div>
+                <div className="about-cell">
+                    <h5>Clock</h5>
+                    <p>Uses a pointer to circularly (like a clock) go through cache items. When the clock encounters an item marked as unused, it evicts it.</p>
+                </div>
             </div>
 
             {/* left and right boxes */}
@@ -151,8 +166,8 @@ const CacheSimulator = () => {
             </div>
             
             <div className='footer'>
-                <p><a href="https://github.com/Siddharth-Shreya/cache-eviction-policies" rel="noreferrer" target="_blank">Source Code</a></p>
-                <p>Built by: <a href="https://www.linkedin.com/in/siddharthsundar" rel="noreferrer" target="_blank">Siddharth Sundar</a> and <a href="https://www.linkedin.com/in/shreyasundar" rel="noreferrer" target="_blank">Shreya Sundar</a></p>
+                <p><a href="https://github.com/Siddharth-Shreya/cache-eviction-policies" rel="noreferrer" target="_blank">Source Code</a> | <a href="https://github.com/Siddharth-Shreya/cache-eviction-policies/blob/main/README.md" rel="noreferrer" target="_blank">About</a></p>
+                <p>Built by <a href="https://www.linkedin.com/in/siddharthsundar" rel="noreferrer" target="_blank">Siddharth Sundar</a> and <a href="https://www.linkedin.com/in/shreyasundar" rel="noreferrer" target="_blank">Shreya Sundar</a></p>
             </div>
         </div>
     );
