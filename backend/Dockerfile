@@ -1,9 +1,16 @@
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-jdk-slim AS build
 
 WORKDIR /backend
 
-COPY . .
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle .
+COPY settings.gradle .
 
-RUN ./gradlew build
+RUN chmod +x gradlew
 
-CMD ["java", "-jar", "build/libs/cachesimulator-0.0.1-SNAPSHOT.jar"]
+COPY src src
+
+RUN ./gradlew clean
+
+RUN ./gradlew bootJar --no-daemon --stacktrace --info
