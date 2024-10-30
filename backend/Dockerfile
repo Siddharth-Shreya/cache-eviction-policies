@@ -1,11 +1,10 @@
 FROM ubuntu:latest AS build
 RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk && \
-    apt-get install -y curl unzip
+    apt-get install -y openjdk-17-jdk curl unzip
 
 WORKDIR /backend
 
-COPY gradlew ./
+COPY gradlew .
 COPY gradle gradle
 COPY build.gradle settings.gradle ./
 RUN chmod +x gradlew
@@ -13,7 +12,7 @@ RUN chmod +x gradlew
 RUN ./gradlew dependencies --no-daemon
 
 COPY src src
-RUN ./gradlew bootJar --no-daemon
+RUN ./gradlew bootJar --no-daemon --stacktrace --info
 
 FROM openjdk:17-jdk-slim
 WORKDIR /app
