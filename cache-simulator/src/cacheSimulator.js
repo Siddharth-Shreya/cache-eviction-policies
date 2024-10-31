@@ -16,7 +16,7 @@ const CacheSimulator = () => {
             return;
         }
         try {
-            const response = await axios.post('http://localhost:8080/cache/initialize', null, {
+            const response = await axios.post('https://cache-eviction-policies-1.onrender.com/cache/initialize', null, {
                 params: { length, policy }
             });
             console.log(response.data);
@@ -38,7 +38,7 @@ const CacheSimulator = () => {
     const addElementToCache = async () => {
         try {
             // Add element to cache
-            const response = await axios.post('http://localhost:8080/cache/add', {
+            const response = await axios.post('https://cache-eviction-policies-1.onrender.com/cache/add', {
                 "value": addedElem
             });
             console.log("Full Response:", response); 
