@@ -18,7 +18,7 @@ const CacheSimulator = () => {
         }
         setLoading(true);
         try {
-            const response = await axios.post('https://cache-eviction-policies-1.onrender.com/cache/initialize', null, {
+            await axios.post('https://cache-eviction-policies-1.onrender.com/cache/initialize', null, {
                 params: { length, policy }
             });
             setCache(new Array(parseInt(length)).fill(null));
