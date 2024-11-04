@@ -1,3 +1,7 @@
+/*
+ * Request format for cache - maintains the cache value
+ */
+
 package com.sidshreya.cachesimulator;
 
 public class CacheRequest {

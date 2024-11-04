@@ -1,3 +1,8 @@
+/*
+ * We initially wrote this test to ensure linked list functions are working.
+ * The test may not work anymore as some of the functions were changed, and the test was not updated accordingly.
+ */
+
 package com.sidshreya.cachesimulator;
 public class LinkedListTest{
     public static void main (String[] args){

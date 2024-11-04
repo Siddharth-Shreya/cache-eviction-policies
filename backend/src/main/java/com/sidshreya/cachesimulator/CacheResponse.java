@@ -1,3 +1,7 @@
+/*
+ * Response format for cache - maintains the cache contents and hit/miss values
+ */
+
 package com.sidshreya.cachesimulator;
 
 public class CacheResponse {

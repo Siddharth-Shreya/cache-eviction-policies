@@ -1,3 +1,7 @@
+/*
+ * CORS configurations
+ */
+
 package com.sidshreya.cachesimulator;
 
 import org.springframework.context.annotation.Configuration;

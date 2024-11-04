@@ -1,3 +1,10 @@
+/*
+ * Function to initialize cache LL with length and policy
+ * Functions to add value to cache based on policy: FIFO, MRU, LRU, Clock
+ * Function to get the cache content
+ */
+
+
 package com.sidshreya.cachesimulator;
 import org.springframework.stereotype.Service;
 
@@ -7,11 +14,13 @@ public class CacheService {
     private int cacheSize;
     private String cachePolicy;
 
+
     public void initializeCache(int length, String policy) {
         this.cachePolicy = policy;
         this.cacheSize = length;
         this.cache = new LinkedList();
     }
+
 
     public boolean populateCache(String value) {
         if (cachePolicy.equals("F")){
@@ -25,6 +34,7 @@ public class CacheService {
         }
         return false;
     }
+
 
     public boolean addValueFifo(String value) {
         boolean hitOrMiss;
@@ -40,6 +50,7 @@ public class CacheService {
         }
         return hitOrMiss;
     }
+
 
     public boolean addValueLru(String value) {
         boolean hitOrMiss;
@@ -62,6 +73,7 @@ public class CacheService {
 
         return hitOrMiss;
     }
+
 
     public boolean addValueClock(String value) {
         boolean hitOrMiss = false;

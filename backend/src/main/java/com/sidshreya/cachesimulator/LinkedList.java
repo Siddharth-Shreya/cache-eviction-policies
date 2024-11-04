@@ -1,8 +1,9 @@
-package com.sidshreya.cachesimulator;
 /*
-This code creates a linked list in Java.
-This will be used to simulate the cache.
+* This code creates a linked list in Java, along with its accessor and manipulator functions
+* This will be used to simulate the cache.
 */
+
+package com.sidshreya.cachesimulator;
 
 public class LinkedList{
     // Main Method

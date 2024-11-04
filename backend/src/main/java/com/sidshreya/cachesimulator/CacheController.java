@@ -1,3 +1,7 @@
+/* 
+ * Endpoints to initialize cache, add to cache, and get the contents of the cache
+ */
+
 package com.sidshreya.cachesimulator;
 
 import org.springframework.beans.factory.annotation.Autowired;
