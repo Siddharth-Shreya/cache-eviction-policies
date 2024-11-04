@@ -4,7 +4,7 @@ Use the app: [https://cache-evictions-simulator.netlify.app/](https://cache-evic
 
 ### Project Overview
 
-###### Goal
+##### Goal
 Simulate 4 different cache eviction policies (FIFO, LRU, MRU and Clock) in a linked-list implementation of a fully associative cache.
 
 ##### Background
