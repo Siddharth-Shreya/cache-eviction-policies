@@ -1,4 +1,4 @@
-## Cache Policies
+## Cache Eviction Policies
 
 Use the app: [https://cache-evictions-simulator.netlify.app/](https://cache-evictions-simulator.netlify.app/)
 
