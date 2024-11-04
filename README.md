@@ -40,3 +40,10 @@ Simulate 4 different cache eviction policies (FIFO, LRU, MRU and Clock) in a lin
 2. If element is not in the cache, and the size of the cache has not been reached, append new value
 3. If element is already in the cache, and the size of cache has not been reached, then move the first occurrence of the element to the back
 4. If element is not in the cache, and the size of cache has been reached, delete the last element and append the new element
+
+### Usage
+Use the web app: [https://cache-evictions-simulator.netlify.app/](https://cache-evictions-simulator.netlify.app/)
+
+Disclaimer: 
+- Sometimes, the request/response between the frontend and server takes some time, so when creating the cache or adding to the cache, there may be a delay of up to a minute.
+- Also, while we have tried our best to ensure that the cache policies yield accurate results, there is always the chance of incorrect cache orderings or discrepancies.
