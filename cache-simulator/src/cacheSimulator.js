@@ -9,22 +9,24 @@ const CacheSimulator = () => {
     const [cache, setCache] = useState([]);
     const [hitOrMiss, setHitOrMiss] = useState(null);
     const [addedElem, setAddedElem] = useState('');
+    const [loading, setLoading] = useState('');
 
     const createCache = async () => {
         if (length <= 0){
             alert("Cache length must be greater than zero!");
             return;
         }
+        setLoading(true);
         try {
             const response = await axios.post('https://cache-eviction-policies-1.onrender.com/cache/initialize', null, {
                 params: { length, policy }
             });
-            console.log(response.data);
             setCache(new Array(parseInt(length)).fill(null));
             setCacheCreated(true);
         } catch (error) {
             console.error("Error initializing cache:", error);
         }
+        setLoading(false);
     };
 
     const resetCache = () => {
@@ -53,7 +55,6 @@ const CacheSimulator = () => {
         } catch (error) {
             console.error("Error adding element to cache:", error);
         }
-        //setAddedElem('');
     }
 
     useEffect(() => {
@@ -137,7 +138,12 @@ const CacheSimulator = () => {
                                 </button>
                             </div>
                         ) : (
-                            <h4>Cache will appear here</h4>
+                            <div>
+                                <h4>Cache will appear here</h4>
+                                {loading && 
+                                    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                                }
+                            </div>
                         )
                     }
 
