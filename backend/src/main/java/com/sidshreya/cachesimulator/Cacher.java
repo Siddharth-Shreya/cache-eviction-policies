@@ -1,4 +1,11 @@
 /*
+Our old code when we were just setting up this project.
+
+Since then, we have migrated the logic to spring boot files and also modified the linked list a bit, 
+which is why everything here is commented out.
+*/
+
+/*
 
 package com.sidshreya.cachesimulator;
 
